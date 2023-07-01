@@ -1,5 +1,6 @@
 import 'package:faker_dart/faker_dart.dart';
 import 'package:flutter/material.dart';
+import 'package:miniprojet_02/database/sqflite_helper.dart';
 import 'package:miniprojet_02/screens/calcule.dart';
 import 'package:miniprojet_02/screens/templates.dart';
 
@@ -33,8 +34,9 @@ class HomePage extends StatelessWidget {
           ],
         ),
         const Spacer(),
-        ElevatedButton(onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context)=> template(CalculePage(), "Calculate")));
+        ElevatedButton(onPressed: () async{
+          await SqlHelper.addOperation("+", "plus");
+          //Navigator.of(context).push(MaterialPageRoute(builder: (context)=> template(CalculePage(), "Calculate")));
         }, child: const Text("Go"))
       ],
     );

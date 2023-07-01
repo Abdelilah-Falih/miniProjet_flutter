@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:miniprojet_02/database/sqflite_helper.dart';
 import 'package:miniprojet_02/screens/resultat.dart';
 import 'package:miniprojet_02/screens/templates.dart';
 
@@ -22,6 +23,30 @@ class _CalculePageState extends State<CalculePage> {
   TextEditingController f_number = TextEditingController();
   TextEditingController s_number = TextEditingController();
   String _groupValue = "plus";
+  List<Widget> radioButtons = [];
+
+  @override
+  void initState() async {
+    super.initState();
+    List<Map<String, dynamic>> data = await SqlHelper.getOperations();
+    
+    for (var i = 0; i < data.length; i++) {
+      radioButtons.add(
+          RadioMenuButton(
+            value: data[i]['value'],
+            groupValue: _groupValue,
+            onChanged: (value) {
+              setState(() {
+                _groupValue = value!;
+              });
+            },
+            child: data[i]['symbol']),
+      );
+    }
+
+    
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,36 +59,7 @@ class _CalculePageState extends State<CalculePage> {
           controller: f_number,
           decoration: const InputDecoration(hintText: "First number"),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-          child: RadioMenuButton(
-              value: "plus",
-              groupValue: _groupValue,
-              onChanged: (value) {
-                setState(() {
-                  _groupValue = value!;
-                });
-              },
-              child: Text("+")),
-        ),
-        RadioMenuButton(
-            value: "minus",
-            groupValue: _groupValue,
-            onChanged: (value) {
-              setState(() {
-                _groupValue = value!;
-              });
-            },
-            child: Text("-")),
-        RadioMenuButton(
-            value: "mult",
-            groupValue: _groupValue,
-            onChanged: (value) {
-              setState(() {
-                _groupValue = value!;
-              });
-            },
-            child: Text("*")),
+        Column(children: radioButtons),
         TextField(
           autofocus: true,
           textAlign: TextAlign.center,
@@ -112,4 +108,6 @@ class _CalculePageState extends State<CalculePage> {
       ],
     );
   }
+  
+  
 }
