@@ -43,7 +43,9 @@ class ResultCalcul extends StatelessWidget {
           ),
           SizedBox(width: 30,),
           Text(message,
-          style: TextStyle(fontSize: 35),)
+          textWidthBasis: TextWidthBasis.longestLine,
+          style: TextStyle(fontSize: 35, 
+          ),)
         ])
       ],
     );
