@@ -7,6 +7,7 @@ import 'package:miniprojet_02/screens/templates.dart';
 class HomePage extends StatelessWidget {
   HomePage();
   final faker = Faker.instance;
+  final operationsDatabase = OperationsDatabase.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +36,8 @@ class HomePage extends StatelessWidget {
         ),
         const Spacer(),
         ElevatedButton(onPressed: () async{
-          var data = await SqlHelper.db();
-          print(data);
+          var data = await operationsDatabase.getAllOperations();
+          print(data.length);
           //Navigator.of(context).push(MaterialPageRoute(builder: (context)=> template(CalculePage(), "Calculate")));
         }, child: const Text("Go"))
       ],

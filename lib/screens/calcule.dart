@@ -24,23 +24,25 @@ class _CalculePageState extends State<CalculePage> {
   TextEditingController s_number = TextEditingController();
   String _groupValue = "plus";
   List<Widget> radioButtons = [];
+  final operationsDatabase = OperationsDatabase.instance;
 
   @override
   void initState() async {
     super.initState();
-    List<Map<String, dynamic>> data = await SqlHelper.getOperations();
+    var data = await operationsDatabase.getAllOperations();
     
     for (var i = 0; i < data.length; i++) {
+      var operation = data[i];
       radioButtons.add(
           RadioMenuButton(
-            value: data[i]['value'],
+            value: operation.value,
             groupValue: _groupValue,
             onChanged: (value) {
               setState(() {
                 _groupValue = value!;
               });
             },
-            child: data[i]['symbol']),
+            child: Text(operation.symbol)),
       );
     }
 
