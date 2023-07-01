@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 // class CalculatePage extends StatefulWidget{
@@ -68,7 +70,41 @@ class _CalculePageState extends State<CalculePage> {
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-          child: ElevatedButton(onPressed: () {}, child: Text("Calculate")),
+          child: ElevatedButton(
+              onPressed: () {
+                try {
+                  int number01 = int.parse(f_number.text);
+                  int number02 = int.parse(s_number.text);
+
+                } on Exception {
+                  var dialog = AlertDialog(
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text("understand"))
+                    ],
+                    title: Text("Caution"),
+                    content: Row(
+                      children: [
+                        Icon(Icons.info),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text("You should enter an Integer"),
+                      ],
+                    ),
+                  );
+                  showDialog(
+                    context: context,
+                    builder: (context) => dialog,
+                    barrierDismissible: false,
+                    barrierLabel: "cancle",
+                  );
+                }
+              },
+              child: const Text("Calculate")),
         )
       ],
     );
