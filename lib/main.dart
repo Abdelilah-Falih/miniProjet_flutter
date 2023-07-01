@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'screens/home_screen.dart';
 import 'screens/templates.dart';
+import 'package:sqflite/sqflite.dart' as sql;
+import 'package:sqflite_common_ffi/sqflite_ffi.dart' as sql_ffi;
 
-void main() {
+void main(){
+  sql_ffi.databaseFactory = sql_ffi.databaseFactoryFfi;
   runApp(const MyApp());
 }
 
