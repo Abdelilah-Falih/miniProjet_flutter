@@ -26,12 +26,14 @@ class HomePage extends StatelessWidget {
                   Row(
                     children: [
                       const Text("Hi ",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23)),
                       Text(
                         user_name,
                         style: const TextStyle(
                           fontSize: 20,
+                          decoration: TextDecoration.underline,
                         ),
+                        
                       ),
                       const Spacer(),
                       GestureDetector(
