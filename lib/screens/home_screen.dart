@@ -35,7 +35,8 @@ class HomePage extends StatelessWidget {
         ),
         const Spacer(),
         ElevatedButton(onPressed: () async{
-          await SqlHelper.addOperation("+", "plus");
+          var data = await SqlHelper.db();
+          print(data);
           //Navigator.of(context).push(MaterialPageRoute(builder: (context)=> template(CalculePage(), "Calculate")));
         }, child: const Text("Go"))
       ],

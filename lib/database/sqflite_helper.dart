@@ -4,9 +4,9 @@ import 'package:sqflite/sqflite.dart' as sql;
 
 class SqlHelper {
   static Future<void> createTable(sql.Database database) async {
-    await database.execute('''
+    await database.execute("""
   CREATE TABLE operations(id INTEGER PRIMARYKEY AUTOINCREMENT , symbol TEXT, value TEXT)
-''');
+""");
   }
 
   static Future<sql.Database> db() async {
