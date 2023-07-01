@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:miniprojet_02/database/sqflite_helper.dart';
 import 'package:miniprojet_02/screens/calcule.dart';
 import 'package:miniprojet_02/screens/templates.dart';
+import 'package:miniprojet_02/screens/about.dart';
 
 class HomePage extends StatelessWidget {
   HomePage();
@@ -28,7 +29,9 @@ class HomePage extends StatelessWidget {
             const Spacer(),
             GestureDetector(
               onTap: () {
-                print("hello");
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => template(AboutApp(), "About"))
+                );
               },
               child: Icon(Icons.info),
             )
@@ -36,9 +39,9 @@ class HomePage extends StatelessWidget {
         ),
         const Spacer(),
         ElevatedButton(onPressed: () async{
-          var data = await operationsDatabase.getAllOperations();
-          print(data.length);
-          //Navigator.of(context).push(MaterialPageRoute(builder: (context)=> template(CalculePage(), "Calculate")));
+          //var data = await operationsDatabase.getAllOperations();
+          //print(data.length);
+          Navigator.of(context).push(MaterialPageRoute(builder: (context)=> template(CalculePage(), "Calculate")));
         }, child: const Text("Go"))
       ],
     );
