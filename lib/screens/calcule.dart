@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:miniprojet_02/screens/resultat.dart';
+import 'package:miniprojet_02/screens/templates.dart';
 
 // class CalculatePage extends StatefulWidget{
 //   CalculatePage();
@@ -54,7 +56,7 @@ class _CalculePageState extends State<CalculePage> {
             },
             child: Text("-")),
         RadioMenuButton(
-            value: "multi",
+            value: "mult",
             groupValue: _groupValue,
             onChanged: (value) {
               setState(() {
@@ -75,6 +77,7 @@ class _CalculePageState extends State<CalculePage> {
                 try {
                   int number01 = int.parse(f_number.text);
                   int number02 = int.parse(s_number.text);
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=> template(ResultCalcul(number01, number02, _groupValue), "Result")));
 
                 } on Exception {
                   var dialog = AlertDialog(
