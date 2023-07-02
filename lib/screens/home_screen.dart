@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:miniprojet_02/database/sqflite_helper.dart';
 import 'package:miniprojet_02/screens/calcule.dart';
 import 'package:miniprojet_02/screens/templates.dart';
+import 'package:miniprojet_02/database/sqflite_helper.dart';
 
 class HomePage extends StatelessWidget {
   HomePage();
   final faker = Faker.instance;
-  final operationsDatabase = OperationsDatabase.instance;
+  SqlDb sqlDb = SqlDb();
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +37,8 @@ class HomePage extends StatelessWidget {
         ),
         const Spacer(),
         ElevatedButton(onPressed: () async{
-          var data = await operationsDatabase.getAllOperations();
-          print(data.length);
+          var data = await sqlDb.getAllOperations();
+          print("data getted : ${data.length}");
           //Navigator.of(context).push(MaterialPageRoute(builder: (context)=> template(CalculePage(), "Calculate")));
         }, child: const Text("Go"))
       ],

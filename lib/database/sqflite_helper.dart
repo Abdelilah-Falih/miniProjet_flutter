@@ -1,75 +1,72 @@
-import 'dart:async';
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
-class OperationsDatabase {
-  static final OperationsDatabase instance = OperationsDatabase._init();
-  static Database? _database;
+class SqlDb {
+  static Database? _db;
+  Future<Database?> get db async{
+    _db ??= await initialDb();
+    return _db; 
 
-  OperationsDatabase._init();
 
-  Future<Database> get database async {
-    if (_database != null) return _database!;
-    _database = await _initDB('operationsdatabase.db');
-    return _database!;
+  }
+  initialDb() async {
+    String database = await getDatabasesPath();
+    String path = join(database, 'operationsdatabase.db');
+    Database db = await openDatabase(path, onCreate: _onCreate);
+    return db;
   }
 
-  Future<Database> _initDB(String filePath) async {
-    final dbPath = await getDatabasesPath();
-    final path = join(dbPath, filePath);
-
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+  _onCreate(Database db, int version) async {
+    await db.execute("""
+CREATE TABLE operations(
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  symbol TEXT,
+  value TEXT
+)
+""");
+    print("tabel created !");
   }
 
-  Future<void> _createDB(Database db, int version) async {
-    await db.execute('''
-      CREATE TABLE operations(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        symbol TEXT,
-        value TEXT
-      )
-      ''');
+  _getData(String sql) async{
+    Database? mydb = await db;
+    List<Map> response = await mydb!.rawQuery(sql);
+    return response;
   }
 
-  Future<int> add(Operation operation) async {
-    final db = await instance.database;
-    return await db.insert('operations', operation.toJson());
+  _insertData(String sql) async{
+    Database? mydb = await db;
+    int response = await mydb!.rawInsert(sql);
+    return response;
+  }
+  _updatetData(String sql) async{
+    Database? mydb = await db;
+    int response = await mydb!.rawUpdate(sql);
+    return response;
+  }
+  _deleteData(String sql) async{
+    Database? mydb = await db;
+    int response = await mydb!.rawDelete(sql);
+    return response;
   }
 
-  Future<int> update(Operation operation) async {
-    final db = await instance.database;
-    return await db.update('operations', operation.toJson(),
-        where: 'id = ?', whereArgs: [operation.id]);
+  getAllOperations() async{
+    List<Map> response = await _getData("SELECT * FROM 'operations'");
+    return response;
   }
 
-  Future<int> delete(int id) async {
-    final db = await instance.database;
-    return await db.delete('operations', where: 'id = ?', whereArgs: [id]);
+  addOperation(String symbol, String value) async{
+    int response = await _insertData("INSERT INTO 'operations' ('symbol', 'value') VALUES ($symbol, $value)");
+    return response;
   }
 
-  Future<List<Operation>> getAllOperations() async {
-    final db = await instance.database;
-    final result = await db.query('operations');
-    return result.map((json) => Operation.fromJson(json)).toList();
+  deleteOperation(int id) async {
+    int response = await _deleteData("DELETE FROM 'operations' WHERE 'id' = $id");
+    return response;
   }
-}
+  updateOperation(int id, String symbol, String value) async {
+    int response = await _updatetData("UPDATE 'operations' SET 'symbol' = $symbol , 'value' = $value WHERE id = $id ");
+    return response;
+  }
 
-class Operation {
-  final int id;
-  final String symbol;
-  final String value;
 
-  Operation({required this.id, required this.symbol, required this.value});
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'symbol': symbol,
-        'value': value,
-      };
-
-  factory Operation.fromJson(Map<String, dynamic> json) => Operation(
-        id: json['id'],
-        symbol: json['symbol'],
-        value: json['value'],
-      );
 }

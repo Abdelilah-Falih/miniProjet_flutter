@@ -24,12 +24,12 @@ class _CalculePageState extends State<CalculePage> {
   TextEditingController s_number = TextEditingController();
   String _groupValue = "plus";
   List<Widget> radioButtons = [];
-  final operationsDatabase = OperationsDatabase.instance;
+  SqlDb sqlDb = SqlDb();
 
   @override
   void initState() async {
     super.initState();
-    var data = await operationsDatabase.getAllOperations();
+    var data = await sqlDb.getAllOperations();
     
     for (var i = 0; i < data.length; i++) {
       var operation = data[i];

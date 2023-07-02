@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'screens/home_screen.dart';
 import 'screens/templates.dart';
-import 'package:sqflite/sqflite.dart' as sql;
 
 
 void main(){
