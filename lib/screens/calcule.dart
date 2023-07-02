@@ -35,14 +35,14 @@ class _CalculePageState extends State<CalculePage> {
       var operation = data[i];
       radioButtons.add(
           RadioMenuButton(
-            value: operation.value,
+            value: operation['value'],
             groupValue: _groupValue,
             onChanged: (value) {
               setState(() {
                 _groupValue = value!;
               });
             },
-            child: Text(operation.symbol)),
+            child: Text(operation['symbol'])),
       );
     }
 
