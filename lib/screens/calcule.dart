@@ -27,24 +27,24 @@ class _CalculePageState extends State<CalculePage> {
   final operationsDatabase = OperationsDatabase.instance;
 
   @override
-  void initState() async {
+  void initState() /*async*/ {
     super.initState();
-    var data = await operationsDatabase.getAllOperations();
+    // var data = await operationsDatabase.getAllOperations();
     
-    for (var i = 0; i < data.length; i++) {
-      var operation = data[i];
-      radioButtons.add(
-          RadioMenuButton(
-            value: operation.value,
-            groupValue: _groupValue,
-            onChanged: (value) {
-              setState(() {
-                _groupValue = value!;
-              });
-            },
-            child: Text(operation.symbol)),
-      );
-    }
+    // for (var i = 0; i < data.length; i++) {
+      // var operation = data[i];
+      // radioButtons.add(
+          // RadioMenuButton(
+            // value: operation.value,
+            // groupValue: _groupValue,
+            // onChanged: (value) {
+              // setState(() {
+                // _groupValue = value!;
+              // });
+            // },
+            // child: Text(operation.symbol)),
+      // );
+    // }
 
     
 

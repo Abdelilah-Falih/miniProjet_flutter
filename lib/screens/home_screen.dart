@@ -19,11 +19,13 @@ class HomePage extends StatelessWidget {
           children: [
             const Text("Hi ",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23)),
-            Text(
-              user_name,
-              style: const TextStyle(
-                fontSize: 20,
-                decoration: TextDecoration.underline,
+            Flexible(
+              child: Text(
+                user_name,
+                style: const TextStyle(
+                  fontSize: 20,
+                  decoration: TextDecoration.underline,
+                ),
               ),
             ),
             const Spacer(),

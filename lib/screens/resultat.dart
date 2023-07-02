@@ -42,10 +42,12 @@ class ResultCalcul extends StatelessWidget {
             image: AssetImage("assets/ic_calculatrice.png"),
           ),
           SizedBox(width: 30,),
-          Text(message,
-          textWidthBasis: TextWidthBasis.longestLine,
-          style: TextStyle(fontSize: 35, 
-          ),)
+          Flexible(
+            child: Text(message,
+            textWidthBasis: TextWidthBasis.longestLine,
+            style: TextStyle(fontSize: 35, 
+            ),),
+          )
         ])
       ],
     );
